@@ -40,11 +40,23 @@ export default function App() {
       <NavigationContainer>
         <Stack.Navigator>
           {user ? (
-            <Stack.Screen name="Home" component={HomeScreen} />
+            <Stack.Screen
+              name="Home"
+              component={HomeScreen}
+              options={{ headerShown: false }}
+            />
           ) : (
             <>
-              <Stack.Screen name="Login" component={LoginScreen} />
-              <Stack.Screen name="Create account" component={RegisterScreen} />
+              <Stack.Screen
+                name="Login"
+                component={LoginScreen}
+                options={{ headerShown: false }}
+              />
+              <Stack.Screen
+                name="Create account"
+                component={RegisterScreen}
+                options={{ headerShown: false }}
+              />
               <Stack.Screen
                 name="Forgot Password"
                 component={ForgotPasswordScreen}

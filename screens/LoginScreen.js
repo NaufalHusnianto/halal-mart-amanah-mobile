@@ -1,4 +1,4 @@
-import { Button, Platform, SafeAreaView, StyleSheet, View } from "react-native";
+import { Platform, Pressable, SafeAreaView, Text, View } from "react-native";
 import FormTextField from "../components/FormTextField";
 import { useState, useContext } from "react";
 import { loadUser, login } from "../services/AuthService";
@@ -36,8 +36,9 @@ export default function ({ navigation }) {
   }
 
   return (
-    <SafeAreaView style={styles.wrapper}>
-      <View style={styles.container}>
+    <SafeAreaView className="flex justify-center min-h-screen px-8">
+      <Text className="text-2xl font-bold text-center">Login</Text>
+      <View>
         <FormTextField
           label="Email Address :"
           value={email}
@@ -52,27 +53,23 @@ export default function ({ navigation }) {
           onChangeText={(text) => setPassword(text)}
           errors={errors.password}
         />
-        <Button title="Login" onPress={handleLogin} />
-        <Button
-          title="Create account"
-          onPress={() => navigation.navigate("Create account")}
-        />
-        <Button
-          title="Forgot Password"
-          onPress={() => navigation.navigate("Forgot Password")}
-        />
+      </View>
+      <View className="mt-6 flex items-center">
+        <Pressable
+          className="bg-blue-500 w-full py-2 rounded-lg"
+          onPress={handleLogin}
+        >
+          <Text className="text-center text-white font-bold">Sign In</Text>
+        </Pressable>
+        <View className="flex flex-row space-x-8 mt-3">
+          <Pressable onPress={() => navigation.navigate("Create account")}>
+            <Text>Don't have an account?</Text>
+          </Pressable>
+          <Pressable onPress={() => navigation.navigate("Forgot Password")}>
+            <Text>Forgot Password?</Text>
+          </Pressable>
+        </View>
       </View>
     </SafeAreaView>
   );
 }
-
-const styles = StyleSheet.create({
-  wrapper: {
-    flex: 1,
-    backgroundColor: "#fff",
-  },
-  container: {
-    padding: 20,
-    rowGap: 16,
-  },
-});

@@ -1,10 +1,18 @@
-import { Button, Platform, SafeAreaView, StyleSheet, View } from "react-native";
+import {
+  Button,
+  Platform,
+  Pressable,
+  SafeAreaView,
+  StyleSheet,
+  Text,
+  View,
+} from "react-native";
 import FormTextField from "../components/FormTextField";
 import { useState, useContext } from "react";
 import { loadUser, register } from "../services/AuthService";
 import AuthContext from "../contexts/AuthContext";
 
-export default function () {
+export default function ({ navigation }) {
   const { setUser } = useContext(AuthContext);
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
@@ -41,8 +49,9 @@ export default function () {
   }
 
   return (
-    <SafeAreaView style={styles.wrapper}>
-      <View style={styles.container}>
+    <SafeAreaView className="flex justify-center min-h-screen px-8">
+      <Text className="text-2xl font-bold text-center">Register</Text>
+      <View className="mt-3">
         <FormTextField
           label="Username :"
           value={name}
@@ -70,19 +79,21 @@ export default function () {
           onChangeText={(text) => setPasswordConfirmation(text)}
           errors={errors.password_confirmation}
         />
-        <Button title="Register" onPress={handleRegister} />
+      </View>
+      <View className="mt-6 flex items-center">
+        <Pressable
+          onPress={handleRegister}
+          className="bg-blue-500 w-full py-2 rounded-lg"
+        >
+          <Text className="text-center text-white font-bold">Register</Text>
+        </Pressable>
+        <Pressable
+          onPress={() => navigation.navigate("Login")}
+          className="mt-3"
+        >
+          <Text>Already have an account?</Text>
+        </Pressable>
       </View>
     </SafeAreaView>
   );
 }
-
-const styles = StyleSheet.create({
-  wrapper: {
-    flex: 1,
-    backgroundColor: "#fff",
-  },
-  container: {
-    padding: 20,
-    rowGap: 16,
-  },
-});
